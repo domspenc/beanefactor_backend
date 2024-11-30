@@ -1,0 +1,29 @@
+ENDPOINTS
+
+DogUser Management
+POST /users/signup – Create a new user.
+POST /users/login – Log in a user.
+POST /users/logout – Log out a user.
+GET /users/{id} – Retrieve user profile.
+PUT or PATCH /users/{id} – Update user profile.
+
+Projects
+GET /projects – List all projects.
+GET /projects/{id} – Retrieve a specific project.
+POST /projects – Create a new project.
+PUT or PATCH /projects/{id} – Update an existing project.
+DELETE /projects/{id} – Delete a project.
+
+Treats
+POST /projects/{id}/treats – Pledge (sacrifice) treats to a project.
+GET /projects/{id}/treats – View total treats pledged. ***this can be added to project details to not have too many endpoints
+
+Comments
+GET /projects/{id}/comments – List all comments for a project.
+POST /projects/{id}/comments – Add a new comment to a project.
+PUT or PATCH /comments/{id} – Update a specific comment.
+DELETE /comments/{id} – Delete a specific comment.
+
+Categories
+GET /categories – List all project categories.
+GET /categories/{id}/projects – List all projects in a specific category.
