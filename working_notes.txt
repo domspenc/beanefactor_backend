@@ -32,6 +32,7 @@ BUILD PROCESS
 13. create views!
     13a. create a urls.py file inside the relevent app directory to handle views urls for that particular app
     13b. make sure you import the urls framework from django!
+    13c. create HTTP requests in the view (GET, POST, etc)
 14. 
 
 
@@ -42,12 +43,9 @@ RUN THE SERVER
 python crowdfunding/manage.py runserver
 http://127.0.0.1:8000/
 
-
-
-
 ENDPOINTS
 
-DogUser Management
+DogUsers
 POST /users/signup – Create a new user.
 POST /users/login – Log in a user.
 POST /users/logout – Log out a user.
