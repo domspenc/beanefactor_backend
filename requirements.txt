@@ -2,3 +2,33 @@
 
 Django==5.1
 djangorestframework==3.15.2
+
+
+
+
+
+
+
+
+# 1 - 🤔 Why Do We Need To Manage Our Dependencies? 🤔
+# There are a few considerations at play here:
+
+# When our code is complete, we want to be able to share it with other programmers, so they'll need to know what extra modules are required to make it go.
+# We might end up working on our code in a team, so we need to make sure that everyone is using the same version of these third-party tools.
+# The libraries we use for this project might later end up getting updated in a way that changes how they work. We need to keep track of what version of these libraries we were using, so that we don't break our code by installing the new versions by mistake.
+# The next coding project we start work on will have different dependencies. If we just install every dependency for every project on our computer without any oversight, we'll quickly lose track of which modules serve which projects. And worse - we might get into conflicts where we need version 1 of some library for one project, but we need version 2 of the same library for another project! Yikes, what a mess.
+
+
+# 2 - ❓ What's The Solution? ❓
+# No matter what language we are working in, the solution is to have some file that contains a list of all the dependencies for our project. Then, we fence off a little section of our computer to act as a "sandbox", and just install the listed dependencies inside the fence.
+
+# In Python we use a tool called pip to manage packages. It lets us download and install any library we want from the global shared package index at https://pypi.org/.
+
+# The "sandboxing" tool we use for Python is called a "virtual environment". There are a few different options, but in this lesson we will be using one called venv. You might run into mentors who use different ones - that's ok, they're all pretty similar.
+
+# So, our system is going to be this:
+
+# For each project we start, we'll create a virtual environment inside the project folder.
+# We will also create a file called requirements.txt. We'll fill this file with a list of the dependencies we need for our project.
+# Whenever we run our code or install our dependencies, we will first make sure that our virtual environment is turned on. That ensures that our installations are happening inside the sandbox, and our code has access to the libraries it needs.
+# Finally, we won't back up our virtual environment on Github. (It's quite large, and it only gets bigger as we install more libraries.) Instead we'll tell Git to ignore it. If we ever need to re-create it, we can use the requirements.txt file to remember what was in it.

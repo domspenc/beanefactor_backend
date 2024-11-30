@@ -1,3 +1,50 @@
+BUILD PROCESS
+(1, 2, 3, 4 - https://github.com/SheCodesAus/PlusLessonContent/blob/main/3_Django_and_DRF/python_dependency_management/python_dependency_management.md)
+1. manage dependencies
+    1a. check if you have pip installed (python -m pip --version)
+    1b. if not, install it(python -m ensurepip --upgrade)
+    1c. a tweak for windows users (https://github.com/SheCodesAus/PlusLessonContent/blob/main/3_Django_and_DRF/python_dependency_management/python_dependency_management.md#32----a-tweak-for-windows-)
+2. set up virtual environment
+    2a. navigate into repo directory and initialise virtual environment directory (python -m venv venv)
+    2b. create requirements.txt file to list the dependencies we plan on using
+    2c. create .gitignore file to store venv directory
+    2d. activate virtual environment (. venv/Scripts/activate)
+3. install requirements (aka django and drf)
+    3a. with your venv running, install requirements (python -m pip install -r requirements.txt)
+    3b. check install was successful (python -m pip freeze)
+4. deactivate virtual environment when finished for the day!! (deactivate)
+(5, 6, 7, 8 - https://github.com/SheCodesAus/PlusLessonContent/blob/main/3_Django_and_DRF/project_setup/project_setup.md)
+5. initialise the project (django-admin startproject crowdfunding)
+6. create a new app (in this case, the 'projects' app) within the project (python manage.py startapp projects)
+7. update installed apps in settings.py
+8. migrations set-up (python crowdfunding/manage.py migrate)
+9. START BUILDING!
+(10 - https://github.com/SheCodesAus/PlusLessonContent/blob/main/3_Django_and_DRF/models/models.md)
+10. create models
+    10a. run <python crowdfunding/manage.py makemigrations> and then <python crowdfunding/manage.py migrate> every time we make changes to our models.py file (this is essentially the database!)
+    10b. you can test this wby running the django shell <python crowdfunding/manage.py shell>
+(11 - https://github.com/orgs/SheCodesAus/projects/4/views/1?pane=issue&itemId=63396719&issue=SheCodesAus%7CPlusLessonContent%7C77)
+11. plan endpoints (urls!)
+(12 - https://github.com/SheCodesAus/PlusLessonContent/blob/main/3_Django_and_DRF/serializers/serializers.md)
+12. create serializers.py file inside inner projects directory
+    12a. make sure you import the serializer framework from DRF 
+(13 - https://github.com/SheCodesAus/PlusLessonContent/blob/main/3_Django_and_DRF/views/views.md)
+13. create views!
+    13a. create a urls.py file inside the relevent app directory to handle views urls for that particular app
+    13b. make sure you import the urls framework from django!
+14. 
+
+
+
+
+
+RUN THE SERVER
+python crowdfunding/manage.py runserver
+http://127.0.0.1:8000/
+
+
+
+
 ENDPOINTS
 
 DogUser Management
