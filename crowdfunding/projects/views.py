@@ -16,7 +16,7 @@ class ProjectList(APIView):
   def post(self, request):
     serializer = ProjectSerializer(data=request.data)
     if serializer.is_valid():
-        serializer.save()
+        serializer.save(owner=request.user)
         return Response(
             serializer.data,
             status=status.HTTP_201_CREATED
@@ -49,7 +49,7 @@ class TreatPledgeList(APIView):
   def post(self, request):
       serializer = TreatPledgeSerializer(data=request.data)
       if serializer.is_valid():
-          serializer.save()
+          serializer.save(supporter=request.user)
           return Response(
               serializer.data,
               status=status.HTTP_201_CREATED

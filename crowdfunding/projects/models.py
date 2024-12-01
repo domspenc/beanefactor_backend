@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
 # Create your models here.
 # --- PROJECT MODEL ---
@@ -12,10 +13,10 @@ class Project(models.Model):
   image = models.URLField()
   is_open = models.BooleanField()
   date_created = models.DateTimeField(auto_now_add=True)
-  # owner = models.ForeignKey(
-  #   'DogUser', 
-  #   on_delete=models.CASCADE, 
-  #   related_name='owned_projects')
+  owner = models.ForeignKey(
+    get_user_model(), 
+    on_delete=models.CASCADE, 
+    related_name='owned_projects')
   # category = models.ForeignKey(
   #   'Category', 
   #   on_delete=models.SET_NULL, 
@@ -28,7 +29,11 @@ class TreatPledge(models.Model):
   comment = models.CharField(max_length=200)
   anonymous = models.BooleanField()
   project = models.ForeignKey(
-      'Project',
-      on_delete=models.CASCADE,
-      related_name='treat_pledges'
+    'Project',
+    on_delete=models.CASCADE,
+    related_name='treat_pledges'
   )
+  supporter = models.ForeignKey(
+    get_user_model(), 
+    on_delete=models.CASCADE, 
+    related_name='treat_pledges')
