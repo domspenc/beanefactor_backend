@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+# --- PROJECT MODEL ---
 class Project(models.Model):
   title = models.CharField(max_length=200)
   description = models.TextField()
@@ -21,6 +22,7 @@ class Project(models.Model):
   #   null=True, 
   #   related_name="projects")  # Use ForeignKey for categories
 
+# --- TREAT PLEDGE MODEL ---
 class TreatPledge(models.Model):
   treats_pledged = models.IntegerField()
   comment = models.CharField(max_length=200)
