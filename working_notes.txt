@@ -42,10 +42,21 @@ BUILD PROCESS
     14e. add a url for the pledge endpoint
     14f. make sure to include the pledge info in our project details with a new projectDetailSerializer
     14g. include these serializer details in our project detail view
+15. users in django/DRF (https://github.com/SheCodesAus/PlusLessonContent/blob/main/3_Django_and_DRF/users/users.md)
+    15a. make sure you're inside the working repo directory (make sure it contains the <manage.py> file)
+    15b. run <python manage.py startapp users> to create the new 'users' app
+    15c. register the new users app in the settings file
 
 
+SUPERUSER Details:
+username: domspenc
+email: domloves@dogs.com
+pw: WoofWoof33
 
-
+DogUser1 Details:
+username: doggo1
+email: doggo1@beanefactor.com
+pw: DoggoOne1
 
 
 RUN THE SERVER
@@ -81,3 +92,34 @@ DELETE /comments/{id} – Delete a specific comment.
 Categories
 GET /categories – List all project categories.
 GET /categories/{id}/projects – List all projects in a specific category.
+
+# CATEGORIES with descriptions
+Healthcare
+Description: Projects focused on improving dog health, well-being, and medical care. This could include veterinary support, health campaigns, or medical research.
+
+Adoption
+Description: Initiatives aimed at finding loving homes for dogs, including rescue efforts, adoption programs, and fostering campaigns.
+
+Training
+Description: Projects related to dog training, behavioral improvement, and skill development, such as obedience training, agility courses, or service dog training.
+
+Nutrition
+Description: Initiatives focused on improving dog nutrition through food donations, education on diet, and promoting healthy eating habits for dogs.
+
+Toys
+Description: Projects dedicated to providing dogs with enriching toys and activities to improve their mental and physical stimulation.
+
+Rescue
+Description: Efforts aimed at rescuing dogs from abusive environments, shelters, or natural disasters, and providing them with a chance at a new life.
+
+Sustainability
+Description: Projects that promote eco-friendly initiatives for dogs, such as sustainable pet products, reducing waste, or advocating for green spaces for dogs.
+
+Technology
+Description: Innovative projects involving technology for dogs, such as wearable health trackers, pet monitoring systems, or dog-friendly apps.
+
+Socialisation
+Description: Initiatives designed to improve the social lives of dogs through community events, dog parks, or group activities aimed at enhancing dog behavior in social settings.
+
+Comfort
+Description: Projects focused on providing dogs with comfort, including creating comfortable living spaces, bedding, and stress-reducing environments.

@@ -2,6 +2,12 @@
 
 Django==5.1
 djangorestframework==3.15.2
+django-cors-headers==4.5.0
+dj-database-url==2.2.0
+gunicorn==23.0.0
+psycopg2-binary==2.9.10
+python-dotenv==1.0.1
+whitenoise==6.7.0
 
 
 
@@ -9,8 +15,7 @@ djangorestframework==3.15.2
 
 
 
-
-# 1 - 🤔 Why Do We Need To Manage Our Dependencies? 🤔
+# 1 -  Why Do We Need To Manage Our Dependencies? 
 # There are a few considerations at play here:
 
 # When our code is complete, we want to be able to share it with other programmers, so they'll need to know what extra modules are required to make it go.
@@ -19,7 +24,7 @@ djangorestframework==3.15.2
 # The next coding project we start work on will have different dependencies. If we just install every dependency for every project on our computer without any oversight, we'll quickly lose track of which modules serve which projects. And worse - we might get into conflicts where we need version 1 of some library for one project, but we need version 2 of the same library for another project! Yikes, what a mess.
 
 
-# 2 - ❓ What's The Solution? ❓
+# 2 -  What's The Solution? 
 # No matter what language we are working in, the solution is to have some file that contains a list of all the dependencies for our project. Then, we fence off a little section of our computer to act as a "sandbox", and just install the listed dependencies inside the fence.
 
 # In Python we use a tool called pip to manage packages. It lets us download and install any library we want from the global shared package index at https://pypi.org/.
