@@ -2,6 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-  path('users/', views.DogUserList.as_view()),
-  path('users/<int:pk>/', views.DogUserDetail.as_view()),
+  path('dogusers/', views.DogUserList.as_view()),
+  path('dogusers/<int:pk>/', views.DogUserDetail.as_view()),
 ]
