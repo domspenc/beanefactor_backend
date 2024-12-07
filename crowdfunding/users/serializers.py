@@ -9,7 +9,3 @@ class DogUserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return DogUser.objects.create_user(**validated_data)
-
- 
-
-    
