@@ -29,7 +29,7 @@ class Project(models.Model):
       default="https://github.com/domspenc/crowdfunding_backend/raw/main/resources/beanefactor_test_logo.jpg",
       blank=True, null=True
       )
-  is_open = models.BooleanField()
+  is_open = models.BooleanField(default=True)
   date_created = models.DateTimeField(auto_now_add=True)
   owner = models.ForeignKey(
     get_user_model(), 
