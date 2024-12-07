@@ -26,7 +26,7 @@ class Project(models.Model):
   #   validators=[MinValueValidator(0)]) # ensures the count never goes below 0
   image = models.URLField(
       max_length=1000,
-      default="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.redbubble.com%2Fi%2Fkids-t-shirt%2FCheeky-Italian-Greyhound-Cartoon-Style-Pet-Art-by-NinosDelViento%2F144984081.MZ153&psig=AOvVaw3htc2aVellqSjNxOeqd4ku&ust=1733644491238000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMDvxZSXlYoDFQAAAAAdAAAAABAE",
+      default="https://scontent.fper7-1.fna.fbcdn.net/v/t39.30808-6/369978875_621935253411512_4526444535835746883_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=IcmxA-5_jwUQ7kNvgEpOrIG&_nc_zt=23&_nc_ht=scontent.fper7-1.fna&_nc_gid=AynHdYIiRX3Bq5mt4BSJTaD&oh=00_AYCXXrkgBRoJJiO6HM2TdIz3l7xwPQ4vPtwYNb3fl0CuKw&oe=6759D33C",
       blank=True, null=True
       )
   is_open = models.BooleanField()
