@@ -31,7 +31,7 @@ class ProjectList(APIView):
   def post(self, request):
     serializer = ProjectSerializer(data=request.data)
     if serializer.is_valid():
-        project = serializer.save(owner=request.user)  # Save the project
+        project = serializer.save(owner=request.user)  # Link project to the logged-in user
         # Link categories to the project
         categories = request.data.get('categories', [])
         project.categories.set(categories)  # Set the categories by their IDs
