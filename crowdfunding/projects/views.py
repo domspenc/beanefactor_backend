@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status, permissions
 from .permissions import IsOwnerOrReadOnly, IsSupporterOrReadOnly, IsAuthorOrReadOnly
 from django.http import Http404
-from .models import Project, TreatPledge, Comment
+from .models import Project, TreatPledge, Comment, Category
 from .serializers import ProjectSerializer, TreatPledgeSerializer, ProjectDetailSerializer, CommentSerializer, CategorySerializer
 
 # PROJECTS
@@ -211,7 +211,7 @@ class CommentDetail(APIView):
     def delete(self, request, pk):
         return Response({"error": "Comments cannot be deleted."}, status=status.HTTP_403_FORBIDDEN)
 
-# CATEGORIES
+# CATEGORIES VIEW
 class CategoryList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 

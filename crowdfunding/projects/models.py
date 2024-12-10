@@ -9,12 +9,6 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class Category(models.Model):
-    name = models.CharField(max_length=100, unique=True)  # The name of the category
-    description = models.TextField(blank=True, null=True)  # Optional description of the category
-
-    def __str__(self):
-        return self.name
 
 # --- PROJECT MODEL ---
 class Project(models.Model):
