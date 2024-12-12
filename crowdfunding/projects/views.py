@@ -99,14 +99,14 @@ class ProjectDetail(APIView):
                 {"error": "You do not have permission to delete this project."},
                 status=status.HTTP_403_FORBIDDEN
             )
-        
+
         # Check if the project has active pledges
-        if project.treat_pledges.exists():
+        if project.treatpledge_set.exists():  # Check if there are any active pledges
             return Response(
                 {"error": "Cannot delete a project with active pledges."},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        
+
         # Delete the project
         project.delete()
         return Response(
@@ -114,19 +114,17 @@ class ProjectDetail(APIView):
             status=status.HTTP_200_OK
         )
 
+# USERS' PROJECTS
+class UserProjectList(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        # Fetch all projects where the current user is the owner
+        projects = Project.objects.filter(owner=request.user)
+        serializer = ProjectSerializer(projects, many=True)
+        return Response(serializer.data)
+
 # TREAT PLEDGES
-
-class DeleteAllPledges(APIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]  # You can adjust this as needed
-
-    def delete(self, request):
-        # This will delete all pledges in the database
-        pledges_deleted, _ = TreatPledge.objects.all().delete()
-
-        return Response(
-            {"message": f"{pledges_deleted} pledges deleted successfully."},
-            status=status.HTTP_200_OK
-        )
 
 # This function checks if the project's treat count has reached its target
 def update_project_status(project):
