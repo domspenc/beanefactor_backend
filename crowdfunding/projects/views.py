@@ -114,16 +114,6 @@ class ProjectDetail(APIView):
             status=status.HTTP_200_OK
         )
 
-# USERS' PROJECTS
-class UserProjectList(APIView):
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get(self, request):
-        # Fetch all projects where the current user is the owner
-        projects = Project.objects.filter(owner=request.user)
-        serializer = ProjectSerializer(projects, many=True)
-        return Response(serializer.data)
-
 # TREAT PLEDGES
 
 # This function checks if the project's treat count has reached its target

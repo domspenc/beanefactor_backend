@@ -6,6 +6,8 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from .models import DogUser
 from .serializers import DogUserSerializer
+from projects.models import Project  # Importing Project model
+from projects.serializers import ProjectSerializer  # Importing ProjectSerializer
 
 # Create your views here.
 class DogUserList(APIView):
@@ -70,3 +72,10 @@ class DogUserSignup(APIView):
                 'email': user.email,
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class DogUserProjects(APIView):
+    def get(self, request, pk):
+        user = DogUser.objects.get(pk=pk)
+        projects = Project.objects.filter(owner=user)  # Adjust this to your project model
+        serializer = ProjectSerializer(projects, many=True)
+        return Response(serializer.data)
