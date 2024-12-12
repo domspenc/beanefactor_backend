@@ -8,10 +8,10 @@ from .serializers import ProjectSerializer, TreatPledgeSerializer, ProjectDetail
 
 # PROJECTS
 class ProjectList(APIView):
-  permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+  permission_classes = [permissions.AllowAny]  # Make it accessible to everyone
 
   def get(self, request):
-    projects = Project.objects.all()
+    projects = Project.objects.order_by('-date_created')[:6]  # Latest 6 projects
     serializer = ProjectSerializer(projects, many=True)
     return Response(serializer.data)
   
@@ -37,6 +37,14 @@ class ProjectList(APIView):
         project.categories.set(categories)  # Set the categories by their IDs
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ProjectCreate(APIView):
+    def post(self, request):
+        serializer = ProjectSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(owner=request.user)  # Assuming the logged-in user is the owner
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # original post request code
     # def post(self, request):
@@ -104,33 +112,68 @@ def update_project_status(project):
 
 class TreatPledgeList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    print(permission_classes)
 
     def get(self, request):
         pledges = TreatPledge.objects.all()
         serializer = TreatPledgeSerializer(pledges, many=True)
         return Response(serializer.data)
-
+    
     def post(self, request):
+        print("Auth Token being used:", request.headers.get('Authorization'))  # Logs the token from the headers
+        print("Request user:", request.user)  # Logs the associated user  # Debugging input data
         serializer = TreatPledgeSerializer(data=request.data)
         if serializer.is_valid():
-            pledge = serializer.save(supporter=request.user)
+            try:
+                pledge = serializer.save(supporter=request.user)
             
-            # Increment the treat count for the project
-            project = pledge.project
-            project.treat_count += pledge.treats_pledged  # Add the pledged treats to the project
-            project.save()
+                # Increment the treat count for the project
+                project = pledge.project
+                project.treat_count += pledge.treats_pledged
+                project.save()
 
-            # Update the project status after the pledge
-            update_project_status(project)
+                # Update the project status after the pledge
+                update_project_status(project)
 
+                print("Pledge created successfully:", pledge)  # Debugging successful pledge
+                return Response(
+                    serializer.data,
+                    status=status.HTTP_201_CREATED
+                )
+            except Exception as e:
+                print("Error saving pledge or updating project:", e)  # Log error details
+                return Response(
+                    {"error": str(e)},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
+        else:
+            print("Serializer validation failed:", serializer.errors)  # Debugging validation errors
             return Response(
-                serializer.data,
-                status=status.HTTP_201_CREATED
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
             )
-        return Response(
-            serializer.errors,
-            status=status.HTTP_400_BAD_REQUEST
-        )
+
+    # def post(self, request):
+    #     serializer = TreatPledgeSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         pledge = serializer.save(supporter=request.user)
+            
+    #         # Increment the treat count for the project
+    #         project = pledge.project
+    #         project.treat_count += pledge.treats_pledged  # Add the pledged treats to the project
+    #         project.save()
+
+    #         # Update the project status after the pledge
+    #         update_project_status(project)
+
+    #         return Response(
+    #             serializer.data,
+    #             status=status.HTTP_201_CREATED
+    #         )
+    #     return Response(
+    #         serializer.errors,
+    #         status=status.HTTP_400_BAD_REQUEST
+    #     )
 
 
 class TreatPledgeDetail(APIView):
