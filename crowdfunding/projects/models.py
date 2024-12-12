@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.validators import MinValueValidator
+
 
 # CATEGORY MODEL
 class Category(models.Model):
@@ -15,9 +17,9 @@ class Project(models.Model):
   title = models.CharField(max_length=200)
   description = models.TextField()
   treat_target = models.IntegerField()
-  # treat_count = models.IntegerField(
-  #   default=0, 
-  #   validators=[MinValueValidator(0)]) # ensures the count never goes below 0
+  treat_count = models.IntegerField(
+    default=0, 
+    validators=[MinValueValidator(0)]) # ensures the count never goes below 0
   image = models.URLField(
       max_length=1000,
       default="https://github.com/domspenc/crowdfunding_backend/raw/main/resources/beanefactor_test_logo.jpg",
