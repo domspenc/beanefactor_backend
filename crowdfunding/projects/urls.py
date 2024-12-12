@@ -12,4 +12,5 @@ urlpatterns = [
   path('comments/pledge/<int:pledge_id>/', views.CommentList.as_view()),  # List comments for a specific pledge
   path('categories/', views.CategoryList.as_view()),  # List and create categories
   path('categories/<int:pk>/', views.CategoryDetail.as_view()),  # Retrieve, update, delete a category
+  path('delete_all_pledges/', views.DeleteAllPledges.as_view(), name='delete-all-pledges'),
 ]
