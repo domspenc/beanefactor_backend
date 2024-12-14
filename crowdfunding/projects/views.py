@@ -15,18 +15,18 @@ class ProjectList(APIView):
     serializer = ProjectSerializer(projects, many=True)
     return Response(serializer.data)
   
-  def post(self, request):
-    serializer = ProjectSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save(owner=request.user)
-        return Response(
-            serializer.data,
-            status=status.HTTP_201_CREATED
-        )
-    return Response(
-        serializer.errors,
-        status=status.HTTP_400_BAD_REQUEST
-    )
+#   def post(self, request):
+#     serializer = ProjectSerializer(data=request.data)
+#     if serializer.is_valid():
+#         serializer.save(owner=request.user)
+#         return Response(
+#             serializer.data,
+#             status=status.HTTP_201_CREATED
+#         )
+#     return Response(
+#         serializer.errors,
+#         status=status.HTTP_400_BAD_REQUEST
+#     )
   
   def post(self, request):
     serializer = ProjectSerializer(data=request.data)
@@ -45,18 +45,6 @@ class ProjectCreate(APIView):
             serializer.save(owner=request.user)  # Assuming the logged-in user is the owner
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    # original post request code
-    # def post(self, request):
-    #     serializer = ProjectSerializer(data=request.data)
-    #     if serializer.is_valid():
-    #         project = serializer.save(owner=request.user)  # Save the project
-
-    #         # Link categories to the project
-    #         categories = request.data.get('categories', [])
-    #         project.categories.set(categories)  # Set the categories by their IDs
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
   
 class ProjectDetail(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
