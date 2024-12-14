@@ -63,6 +63,9 @@ RUN THE SERVER
 python crowdfunding/manage.py runserver
 http://127.0.0.1:8000/
 
+DEFAULT IMAGE URL
+https://github.com/domspenc/crowdfunding_backend/raw/main/resources/beanefactor_test_logo.jpg
+
 ENDPOINTS
 
 DogUsers
