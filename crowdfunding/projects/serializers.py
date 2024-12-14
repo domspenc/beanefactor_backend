@@ -10,7 +10,6 @@ class TreatPledgeSerializer(serializers.ModelSerializer):
 
 class ProjectSerializer(serializers.ModelSerializer):
   owner = serializers.ReadOnlyField(source='owner.id')
-  categories = serializers.StringRelatedField(many=True)  # This will display category names
   class Meta:
       model = apps.get_model('projects.Project')
       fields = '__all__' # aka ['id', 'title', 'description', 'treat_target', 'image', 'is_open', 'date_created', 'owner']
