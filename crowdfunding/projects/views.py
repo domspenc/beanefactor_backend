@@ -89,7 +89,7 @@ class ProjectDetail(APIView):
             )
 
         # Check if the project has active pledges
-        if project.treatpledge_set.exists():  # Check if there are any active pledges
+        if project.treat_pledges.exists():  # Check if there are any active pledges
             return Response(
                 {"error": "Cannot delete a project with active pledges."},
                 status=status.HTTP_400_BAD_REQUEST
