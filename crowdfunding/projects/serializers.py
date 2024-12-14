@@ -10,10 +10,11 @@ class TreatPledgeSerializer(serializers.ModelSerializer):
 
 class ProjectSerializer(serializers.ModelSerializer):
   owner = serializers.ReadOnlyField(source='owner.id')
+  image = serializers.ImageField(required=False)
   class Meta:
       model = apps.get_model('projects.Project')
       fields = '__all__' # aka ['id', 'title', 'description', 'treat_target', 'image', 'is_open', 'date_created', 'owner']
-      image = serializers.ImageField(required=False)
+      
 
 class ProjectDetailSerializer(ProjectSerializer):
   # Meta fields are inherited from ProjectSerializer, so are the same as above with the exception of including treat_pledges
