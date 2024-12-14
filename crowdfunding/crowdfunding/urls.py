@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from users.views import CustomAuthToken
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,7 +26,7 @@ urlpatterns = [
     path('', include('users.urls')),
     path('api-token-auth/', CustomAuthToken.as_view(), name='api_token_auth'),
     path('dogusers/', include('users.urls'))
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 
