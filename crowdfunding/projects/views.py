@@ -153,28 +153,6 @@ class TreatPledgeList(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-    # def post(self, request):
-    #     serializer = TreatPledgeSerializer(data=request.data)
-    #     if serializer.is_valid():
-    #         pledge = serializer.save(supporter=request.user)
-            
-    #         # Increment the treat count for the project
-    #         project = pledge.project
-    #         project.treat_count += pledge.treats_pledged  # Add the pledged treats to the project
-    #         project.save()
-
-    #         # Update the project status after the pledge
-    #         update_project_status(project)
-
-    #         return Response(
-    #             serializer.data,
-    #             status=status.HTTP_201_CREATED
-    #         )
-    #     return Response(
-    #         serializer.errors,
-    #         status=status.HTTP_400_BAD_REQUEST
-    #     )
-
 
 class TreatPledgeDetail(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsSupporterOrReadOnly]
@@ -211,6 +189,10 @@ class TreatPledgeDetail(APIView):
     def delete(self, request, pk):
         pledge = self.get_object(pk)
         pledge.delete()
+        return Response(
+            {"message": "Project deleted successfully."},
+            status=status.HTTP_200_OK
+        )
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # COMMENTS

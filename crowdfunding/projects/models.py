@@ -21,7 +21,7 @@ class Project(models.Model):
     default=0, 
     validators=[MinValueValidator(0)]) # ensures the count never goes below 0
   image = models.URLField(
-      max_length=1000,
+      max_length=10000,
       default="https://github.com/domspenc/crowdfunding_backend/raw/main/resources/beanefactor_test_logo.jpg",
       blank=True, null=True
       )
