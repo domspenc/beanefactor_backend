@@ -14,19 +14,7 @@ class ProjectList(APIView):
     projects = Project.objects.order_by('-date_created')[:6]  # Latest 6 projects
     serializer = ProjectSerializer(projects, many=True)
     return Response(serializer.data)
-  
-#   def post(self, request):
-#     serializer = ProjectSerializer(data=request.data)
-#     if serializer.is_valid():
-#         serializer.save(owner=request.user)
-#         return Response(
-#             serializer.data,
-#             status=status.HTTP_201_CREATED
-#         )
-#     return Response(
-#         serializer.errors,
-#         status=status.HTTP_400_BAD_REQUEST
-#     )
+
   
   def post(self, request):
     serializer = ProjectSerializer(data=request.data)
@@ -40,7 +28,7 @@ class ProjectList(APIView):
 
 class ProjectCreate(APIView):
     def post(self, request):
-        serializer = ProjectSerializer(data=request.data)
+        serializer = ProjectSerializer(data=request.data, files=request.FILES)  # Add 'files=request.FILES' here
         if serializer.is_valid():
             serializer.save(owner=request.user)  # Assuming the logged-in user is the owner
             return Response(serializer.data, status=status.HTTP_201_CREATED)
