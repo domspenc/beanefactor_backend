@@ -8,28 +8,14 @@ class TreatPledgeSerializer(serializers.ModelSerializer):
       model = apps.get_model('projects.TreatPledge')
       fields = '__all__' # aka ['id', 'treats_pledged', 'comment', 'anonymous', 'project', 'supporter']
 
-# class ProjectSerializer(serializers.ModelSerializer):
-#   owner = serializers.ReadOnlyField(source='owner.id')
-#   image = serializers.ImageField(required=False)  # Ensure it returns the full URL
-#   class Meta:
-#       model = apps.get_model('projects.Project')
-#       fields = '__all__' # aka ['id', 'title', 'description', 'treat_target', 'image', 'is_open', 'date_created', 'owner']
-
 class ProjectSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.id')
-    image = serializers.ImageField(required=False)
-
-    def get_image_url(self, obj):
-        request = self.context.get('request')
-        if obj.image:
-            return request.build_absolute_uri(obj.image.url)
-        return None
-
-    class Meta:
-        model = apps.get_model('projects.Project')
-        fields = '__all__'  # Include the full list of fields, including the image
-
-      
+  owner = serializers.ReadOnlyField(source='owner.id')
+  class Meta:
+      model = apps.get_model('projects.Project')
+      fields = '__all__' # aka ['id', 'title', 'description', 'treat_target', 'image', 'is_open', 'date_created', 'owner']
+      extra_kwargs = {
+         'image': {'required': False}
+      }
 
 class ProjectDetailSerializer(ProjectSerializer):
   # Meta fields are inherited from ProjectSerializer, so are the same as above with the exception of including treat_pledges
@@ -67,15 +53,3 @@ class CategorySerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = Location
 #         fields = ['__all__'] # aka ['id', 'city', 'region', 'projects']
-
-
-
-
-# {
-# 	"title": "Therapy Dogs for Kids",
-# 	"description": "This project aims to raise funds to train therapy dogs that will visit children in hospitals, providing comfort, companionship, and emotional support. With every treat pledged, we can help equip a dog with the skills needed to brighten a child's day and provide them with the healing power of a furry friend.",
-# 	"treat_target": 1000,
-# 	"image": "http://127.0.0.1:8000/media/therapy.jpg",
-# 	"is_open": true,
-# 	"categories": [1, 10]
-# }

@@ -20,12 +20,7 @@ class Project(models.Model):
   treat_count = models.IntegerField(
     default=0, 
     validators=[MinValueValidator(0)]) # ensures the count never goes below 0
-  image = models.ImageField(
-        upload_to='project_images/',  # Directory where images will be stored
-        default="default_image.jpg",  # Provide a default image in your static files
-        blank=True,
-        null=True
-    )
+  image = models.URLField(max_length=2000, blank=True, null=True)
   is_open = models.BooleanField(default=True)
   date_created = models.DateTimeField(auto_now_add=True)
   owner = models.ForeignKey(

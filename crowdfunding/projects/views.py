@@ -11,10 +11,9 @@ class ProjectList(APIView):
   permission_classes = [permissions.AllowAny]  # Make it accessible to everyone
 
   def get(self, request):
-    projects = Project.objects.order_by('-date_created')[:6]  # Latest 6 projects
+    projects = Project.objects.order_by('-date_created')[:8]  # Latest 6 projects
     serializer = ProjectSerializer(projects, many=True)
     return Response(serializer.data)
-
   
   def post(self, request):
     serializer = ProjectSerializer(data=request.data)
@@ -28,7 +27,7 @@ class ProjectList(APIView):
 
 class ProjectCreate(APIView):
     def post(self, request):
-        serializer = ProjectSerializer(data=request.data, files=request.FILES)  # Add 'files=request.FILES' here
+        serializer = ProjectSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(owner=request.user)  # Assuming the logged-in user is the owner
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -77,7 +76,7 @@ class ProjectDetail(APIView):
             )
 
         # Check if the project has active pledges
-        if project.treat_pledges.exists():  # Check if there are any active pledges
+        if project.treatpledge_set.exists():  # Check if there are any active pledges
             return Response(
                 {"error": "Cannot delete a project with active pledges."},
                 status=status.HTTP_400_BAD_REQUEST
@@ -141,6 +140,28 @@ class TreatPledgeList(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
+    # def post(self, request):
+    #     serializer = TreatPledgeSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         pledge = serializer.save(supporter=request.user)
+            
+    #         # Increment the treat count for the project
+    #         project = pledge.project
+    #         project.treat_count += pledge.treats_pledged  # Add the pledged treats to the project
+    #         project.save()
+
+    #         # Update the project status after the pledge
+    #         update_project_status(project)
+
+    #         return Response(
+    #             serializer.data,
+    #             status=status.HTTP_201_CREATED
+    #         )
+    #     return Response(
+    #         serializer.errors,
+    #         status=status.HTTP_400_BAD_REQUEST
+    #     )
+
 
 class TreatPledgeDetail(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsSupporterOrReadOnly]
@@ -177,10 +198,6 @@ class TreatPledgeDetail(APIView):
     def delete(self, request, pk):
         pledge = self.get_object(pk)
         pledge.delete()
-        return Response(
-            {"message": "Project deleted successfully."},
-            status=status.HTTP_200_OK
-        )
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # COMMENTS
