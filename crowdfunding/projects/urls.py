@@ -5,6 +5,7 @@ urlpatterns = [
   path('projects/', views.ProjectList.as_view(), name='project-list'),  # View for all projects
   path('projects/<int:pk>/', views.ProjectDetail.as_view()),
   path('projects/create/', views.ProjectCreate.as_view(), name='project-create'),  # New endpoint for creating a project
+  path('user/projects/', views.UserProjectList.as_view(), name='user-projects'),
   path('treatpledges/', views.TreatPledgeList.as_view()),
   path('treatpledges/<int:pk>/', views.TreatPledgeDetail.as_view()),
   path('comments/', views.CommentList.as_view()),  # List and create comments
